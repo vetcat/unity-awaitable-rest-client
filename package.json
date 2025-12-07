@@ -1,0 +1,22 @@
+{
+  "name": "com.vetcat.awaitable-rest-client",
+  "displayName": "Awaitable REST Client",
+  "version": "0.1.0",
+  "unity": "2023.1",
+  "description": "Lightweight UnityWebRequest wrapper built on Unity's Awaitable API.",
+  "author": {
+    "name": "vetcat",
+    "email": "vetcat@yandex.ru",
+    "url": "https://github.com/vetcat"
+  },
+  "keywords": [
+    "awaitable",
+    "http",
+    "rest",
+    "network",
+    "unitywebrequest"
+  ],
+  "dependencies": {
+    "com.unity.modules.unitywebrequest": "1.0.0"
+  }
+}
