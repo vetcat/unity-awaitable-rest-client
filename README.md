@@ -9,6 +9,12 @@ Lightweight UnityWebRequest wrapper based on Unity's Awaitable API.
 ✔ Full control over serialization at call site
 
 ---
+### Install the _Unity Awaitable REST Client_ Package
+
+1. Copy the git URL of this repository: `https://github.com/vetcat/unity-awaitable-rest-client`
+2. In Unity, open the Package Manager from the menu by going to `Window > Package Manager`
+3. Click the plus icon in the upper left and choose `Add package from git URL...`
+4. Paste the git URL into the text field and click the `Add` button.
 
 ## Example Usage
 
