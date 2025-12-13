@@ -1,6 +1,6 @@
 {
     "name": "AwaitableRestClient",
-    "rootNamespace": "Vetcat.AwaitableRestClient",
+    "rootNamespace": "AwaitableRestClient",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

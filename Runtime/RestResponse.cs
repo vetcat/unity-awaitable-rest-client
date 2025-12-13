@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Vetcat.AwaitableRestClient
+namespace AwaitableRestClient
 {
     public readonly struct RestResponse
     {
