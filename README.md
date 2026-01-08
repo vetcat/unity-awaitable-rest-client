@@ -1,3 +1,5 @@
+# !!! This is a test repository not ready for production - the task is to study the planning of writing and testing code using AI agents.
+
 # Unity Awaitable REST Client
 
 Lightweight UnityWebRequest wrapper based on Unity's Awaitable API.
