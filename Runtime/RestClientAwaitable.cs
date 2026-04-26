@@ -9,6 +9,25 @@ namespace AwaitableRestClient
 {
     public static class RestClientAwaitable
     {
+        internal readonly struct RequestData
+        {
+            public string Url { get; }
+            public string Method { get; }
+            public string Body { get; }
+            public string ContentType { get; }
+
+            public RequestData(string url, string method, string body, string contentType)
+            {
+                Url = url;
+                Method = method;
+                Body = body;
+                ContentType = contentType;
+            }
+        }
+
+        internal static Func<RequestData, CancellationToken, Awaitable<RestResponse>> SendImplementation { get; set; }
+            = DefaultSendImplementation;
+
         public static Awaitable<RestResponse> Get(string url)
             => Send(url, UnityWebRequest.kHttpVerbGET, null, null, CancellationToken.None);
 
@@ -21,25 +40,32 @@ namespace AwaitableRestClient
         public static Awaitable<RestResponse> Post(string url, string body, CancellationToken cancellationToken)
             => Send(url, UnityWebRequest.kHttpVerbPOST, body, "application/json", cancellationToken);
         
-        private static async Awaitable<RestResponse> Send(
+        private static Awaitable<RestResponse> Send(
             string url,
             string method,
             string body,
             string contentType,
             CancellationToken cancellationToken)
         {
-            using var request = new UnityWebRequest(url, method)
+            return SendImplementation(new RequestData(url, method, body, contentType), cancellationToken);
+        }
+
+        private static async Awaitable<RestResponse> DefaultSendImplementation(
+            RequestData requestData,
+            CancellationToken cancellationToken)
+        {
+            using var request = new UnityWebRequest(requestData.Url, requestData.Method)
             {
                 downloadHandler = new DownloadHandlerBuffer()
             };
 
-            if (body != null)
+            if (requestData.Body != null)
             {
-                var bytes = Encoding.UTF8.GetBytes(body);
+                var bytes = Encoding.UTF8.GetBytes(requestData.Body);
                 request.uploadHandler = new UploadHandlerRaw(bytes);
 
-                if (!string.IsNullOrEmpty(contentType))
-                    request.SetRequestHeader("Content-Type", contentType);
+                if (!string.IsNullOrEmpty(requestData.ContentType))
+                    request.SetRequestHeader("Content-Type", requestData.ContentType);
             }
 
             using (cancellationToken.Register(() => request.Abort()))
@@ -74,4 +100,3 @@ namespace AwaitableRestClient
         }
     }
 }
-
